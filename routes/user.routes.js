@@ -13,19 +13,18 @@ var app = express();
 var userEsquema = require('../models/user');
 
 
-// ruta principal
-
-
-
 // ===============================
 //  OBTENER TODOS LOS USUSARIOS
 // ===============================
 app.get('/', (request, response, next) => {
 
-
+    var desde = request.query.desde || 0;
+    desde = Number(desde);
 
     userEsquema.find({  },  'nombre email img role')
-        
+    
+    .skip(desde)
+    .limit(5)
     .exec(        
         (error, users) => {
 
@@ -37,12 +36,16 @@ app.get('/', (request, response, next) => {
             });
         }
 
-        response.status(200).json({
-            ok: true,
-            mensaje: 'Get de ususarios',
-            users: users
-        });
+        userEsquema.count({}, (err, conteo) => {
 
+            response.status(200).json({
+                ok: true,
+                mensaje: 'Get de ususarios',
+                users: users,
+                total: conteo
+            });
+
+        });
     })
 
     
@@ -53,7 +56,7 @@ app.get('/', (request, response, next) => {
 // ===============================
 //  cREAR UN NUEVO USUSARIO
 // ===============================
-app.post('/', mdAutenticacion.verificaToken, (req, res) => {
+app.post('/',  (req, res) => {
 
     var body = req.body; /*Lo usamos para parserar la informacion - Es un libreria externa*/
 

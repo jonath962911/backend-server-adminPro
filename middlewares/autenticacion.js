@@ -1,5 +1,5 @@
 // libreria para json web token
-var jwt =require('jsonwebtoken');
+var jwt = require('jsonwebtoken');
 
 // Traemos la constante cemilla parametrizada desde un arhcivo de configuración
 var SEED = require('../config/config').SEED;

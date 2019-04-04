@@ -49,7 +49,7 @@ app.post('/', ( req, res ) => {
         }
 
 
-        // Crear un toke
+        // Crear un token
         userDb.pass = ':)';
         var token = jwt.sign( { user: userDb }, SEED, {expiresIn: 1400} )
 

@@ -8,10 +8,15 @@ var bodyParser = require('body-parser');
 var appRoutes = require('./routes/app.routes');
 var userRoutes = require('./routes/user.routes');
 var loginRoutes = require('./routes/login.routes');
+var hopitalesRoutes = require('./routes/hopitales.routes');
+var medicosRoutes = require('./routes/medicos.routes');
+var busquedaRoutes = require('./routes/busqueda.routes');
+var upload = require('./routes/upload.routes');
 
 
 // Inicializar varaibles
 var app = express();
+
 
 // BODY PARSER
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -26,10 +31,23 @@ mongoose.connection.openUri('mongodb://localhost:27017/hospitalDb', { useNewUrlP
    });
 
 
-   
-// rutas
+
+//====================
+//IMPORTACION DE TODAS LAS RUTAS
+//====================
+// rutas usuarrios
 app.use('/user', userRoutes);
+// ruta login
 app.use('/login', loginRoutes);
+// ruta Hospitales
+app.use('/hospitales', hopitalesRoutes );
+//Ruta de medicos
+app.use('/medicos', medicosRoutes);
+//Ruta de busquedas 
+app.use('/busqueda', busquedaRoutes);
+// Cargar imagenes al servidor
+app.use('/upload', upload);
+// Ruta general
 app.use('/', appRoutes);
 
 
