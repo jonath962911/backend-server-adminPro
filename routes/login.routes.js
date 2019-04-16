@@ -38,9 +38,10 @@ app.post('/', ( req, res ) => {
                 errors: err
             });
         }
+        
 
         // verificar la contrasenia de ese ususario
-        if (!bcrypt.compareSync (body.pass, userDb.password)) {
+        if (!bcrypt.compareSync (body.pass, userDb.pass)) {
             return res.status(400).json({
                 ok: false,
                 mensaje: 'Error al verificar usuario, verifique sus credenciales - password',
@@ -50,7 +51,7 @@ app.post('/', ( req, res ) => {
 
 
         // Crear un token
-        userDb.pass = ':)';
+        userDb.password = ':)';
         var token = jwt.sign( { user: userDb }, SEED, {expiresIn: 1400} )
 
         res.status(200).json({

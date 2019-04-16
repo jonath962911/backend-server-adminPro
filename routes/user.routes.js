@@ -63,7 +63,7 @@ app.post('/',  (req, res) => {
     var user = new userEsquema( {  /* Definicion para crear un nuevo ususario en la base de datos */
         nombre: body.nombre,
         email: body.email,
-        password: bcrypt.hashSync(body.pass, 10),
+        pass: bcrypt.hashSync( body.pass, 10),
         img: body.img,
         role: body.role
     })
@@ -71,7 +71,7 @@ app.post('/',  (req, res) => {
     user.save( (error, usuarioGuardado) => { 
 
        if( error ) {
-           return res.status(402).json({
+           return res.status(400).json({
                ok: false,
                mensaje: 'Error db- Al crear un ususairo',
                errors: error
@@ -81,7 +81,8 @@ app.post('/',  (req, res) => {
        res.status(201).json({
            ok: true,
            user: usuarioGuardado,
-           usuariotoken: req.usuario
+           usuariotoken: req.usuario,
+           body: body
        });
 
      } );

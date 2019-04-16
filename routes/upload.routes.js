@@ -119,12 +119,10 @@ function subirPorTipo ( tipo, id, nombreArchivo, res ) {
 
             usuario.save((err, usuarioActualizado) =>{
 
-                usuarioActualizado.password = ':)';
-
                 return res.status(200).json({
                     ok: true,
                     mensaje: 'Imagen de ususario actualizada',
-                    usuario: usuarioActualizado
+                    user: usuarioActualizado
                 });
 
             })
